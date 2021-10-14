@@ -54,9 +54,9 @@ ISO 處理 float 的進位方法：
 
 ## ANSI 🆚 TSQL
 
-**Convert_Time** vs **GetDate()**
-**Coalesce** vs **IsNull**
-**Cast** vs **Convert**
+1. **Convert_Time** vs **GetDate()**
+2. **Coalesce** vs **IsNull**
+3. **Cast** vs **Convert**
 
 ## Add Opesrator 🆚 Concat Function
 
