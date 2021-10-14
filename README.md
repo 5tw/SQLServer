@@ -17,11 +17,6 @@ dataset = { A, A, B, B, C, N }
 |Equal A|A A|
 |Not Equal A|B B C|
 
-Not Null : A A B B C
-Null : N
-A : A A
-Not A: B B C
-
 ## Compare Execution Plan
 
 1. Select Different Syntax
