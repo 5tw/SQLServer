@@ -82,4 +82,21 @@ SELECT DateName(Month, Getdate()),
        DateName(WeekDay, Getdate())
 ```
 
+## 查詢效能
 
+Merge Join > Hash Join > Nested Loop Join
+
+Join > SubQuery (通常而言)
+
+Index Seek > Index Scan
+
+### 
+
+```sql
+SET statistics io ON
+```
+
+藉由將 STATISTICS IO 設定為 ON 以顯示查詢的 IO 統計資訊
+
+**邏輯讀取** 從資料快取中讀取的頁數
+**實體讀取** 從磁碟中讀取的頁數
