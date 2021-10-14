@@ -1,4 +1,4 @@
-# You Don't Know SQLServer
+# You Don't Know SQL Server
 
 ## Escape Char
 
