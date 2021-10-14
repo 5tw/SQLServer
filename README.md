@@ -95,3 +95,11 @@ SET statistics io ON
 
 **邏輯讀取** 從資料快取中讀取的頁數
 **實體讀取** 從磁碟中讀取的頁數
+
+## CTE
+
+Common Table Expression 解決 Outer Join 查詢上語法設計思考不易的痛點，改善語法的易讀性，而不影響效能 😀
+
+## Outer Join 的 On 有事嗎？
+
+思考用 On 來限制 Outer Join 單方面資料表的作用 😶
