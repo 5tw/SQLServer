@@ -1,5 +1,7 @@
 # You Don't Know SQL Server
 
+https://drive.google.com/drive/folders/1T5Wkr71QGYFg0Iym3ASC-SKtUKQgNkXl
+
 ## Escape Char
 
 ```sql
