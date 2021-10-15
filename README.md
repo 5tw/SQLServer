@@ -103,3 +103,34 @@ Common Table Expression 解決 Outer Join 查詢上語法設計思考不易的�
 ## Outer Join 的 On 有事嗎？
 
 思考用 On 來限制 Outer Join 單方面資料表的作用 😶
+
+## Delete With Select
+
+可以組合複雜的刪除條件，例如刪除符合特定 Join 結果的資料。
+
+```sql
+DELETE FROM A
+FROM   dbo.customers A
+       LEFT OUTER JOIN dbo.orders B
+                    ON A.customerid = B.customerid
+WHERE  B.orderid IS NULL
+```
+
+## Insert Select 🆚 Select Into 🆚 Insert Exec
+
+<dl>
+  <dt>Insert Select</dt>
+  <dd>將查詢資料新增至已存在的資料表</dd>
+  <dt>Insert Exec</dt>
+  <dd>將執行 Stored Procedures 的結果新增至已存在的資料表</dd>	
+  <dt>Select Into</dt>
+  <dd>將查詢資料建立至新資料表</dd>
+</dl>
+
+## IDENT_CURRENT
+
+取得資料列自動編號的最新資料值，可以用於查詢最新的資料而不必 Order By。
+
+```sql
+Select IDENT_CURRENT('dbo.Employees')
+```
