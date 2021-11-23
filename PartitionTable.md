@@ -131,7 +131,7 @@ go
 
 ![](https://i.imgur.com/BdwIVJQ.png)
 
-### ### Partition Function Split & Merge
+### Partition Function Split & Merge
 
 ```SQL
 -- SPLIT
