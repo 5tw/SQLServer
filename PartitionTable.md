@@ -127,3 +127,54 @@ ORDER	BY t.name
 go
 ```
 
+---
+
+
+```SQL
+-- SPLIT
+
+ALTER PARTITION SCHEME OrdersByYear NEXT USED FileGroup1
+GO
+ALTER PARTITION FUNCTION YearlyPartitionFunction() SPLIT RANGE ('2008-12-31 00:00:00.000')
+
+ALTER PARTITION FUNCTION YearlyPartitionFunction() SPLIT RANGE ('2009-12-31 00:00:00.000')
+
+--merge
+
+ALTER PARTITION FUNCTION YearlyPartitionFunction()
+MERGE RANGE ('2008-12-31 00:00')
+
+ALTER PARTITION FUNCTION YearlyPartitionFunction()
+MERGE RANGE ('2007-12-31 00:00')
+
+ALTER PARTITION FUNCTION YearlyPartitionFunction()
+MERGE RANGE ('2006-12-31 00:00')
+
+ALTER PARTITION FUNCTION YearlyPartitionFunction()
+MERGE RANGE ('2005-12-31 00:00')
+
+ALTER PARTITION SCHEME OrdersByYear NEXT USED FileGroup1
+GO
+ALTER PARTITION FUNCTION YearlyPartitionFunction() SPLIT RANGE ('2005-12-31 00:00:00.000')
+
+ALTER PARTITION SCHEME OrdersByYear NEXT USED FileGroup2
+GO
+ALTER PARTITION FUNCTION YearlyPartitionFunction() SPLIT RANGE ('2006-12-31 00:00:00.000')
+go
+ALTER PARTITION SCHEME OrdersByYear NEXT USED FileGroup3
+GO
+ALTER PARTITION FUNCTION YearlyPartitionFunction() SPLIT RANGE ('2007-12-31 00:00:00.000')
+GO
+
+-- SWITCH
+
+DECLARE @p int = $PARTITION.YearlyPartitionFunction('2006-12-31 00:00');
+select @p
+
+ALTER TABLE Sales.SalesOrderHeader_Partitioned1
+SWITCH partition 2 TO Sales.SalesOrderHeader_Partitioned PARTITION 2
+GO
+ALTER TABLE Sales.SalesOrderHeader_Partitioned1
+SWITCH partition 3 TO Sales.SalesOrderHeader_Partitioned PARTITION 3
+```
+
