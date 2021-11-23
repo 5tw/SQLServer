@@ -98,6 +98,8 @@ SELECT	SalesOrderID, RevisionNumber, OrderDate, DueDate, ShipDate, [Status], Onl
 FROM	Sales.SalesOrderHeader
 ```
 
+![](https://i.imgur.com/124AwLy.png)
+
 ### Check Partitino Table
 
 ```SQL
@@ -127,8 +129,9 @@ ORDER	BY t.name
 go
 ```
 
----
+![](https://i.imgur.com/BdwIVJQ.png)
 
+---
 
 ```SQL
 -- SPLIT
@@ -166,6 +169,8 @@ GO
 ALTER PARTITION FUNCTION YearlyPartitionFunction() SPLIT RANGE ('2007-12-31 00:00:00.000')
 GO
 
+![](https://i.imgur.com/Da0Dtr4.png)
+
 -- SWITCH
 
 DECLARE @p int = $PARTITION.YearlyPartitionFunction('2006-12-31 00:00');
@@ -174,7 +179,8 @@ select @p
 ALTER TABLE Sales.SalesOrderHeader_Partitioned1
 SWITCH partition 2 TO Sales.SalesOrderHeader_Partitioned PARTITION 2
 GO
-ALTER TABLE Sales.SalesOrderHeader_Partitioned1
-SWITCH partition 3 TO Sales.SalesOrderHeader_Partitioned PARTITION 3
 ```
 
+![](https://i.imgur.com/lU4RAeX.png)
+
+![](https://i.imgur.com/joNamv4.png)
