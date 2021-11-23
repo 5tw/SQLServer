@@ -131,7 +131,7 @@ go
 
 ![](https://i.imgur.com/BdwIVJQ.png)
 
----
+### ### Partition Function Split & Merge
 
 ```SQL
 -- SPLIT
@@ -168,10 +168,13 @@ ALTER PARTITION SCHEME OrdersByYear NEXT USED FileGroup3
 GO
 ALTER PARTITION FUNCTION YearlyPartitionFunction() SPLIT RANGE ('2007-12-31 00:00:00.000')
 GO
+```
 
 ![](https://i.imgur.com/Da0Dtr4.png)
 
--- SWITCH
+### Partition Table Switch
+
+```SQL
 
 DECLARE @p int = $PARTITION.YearlyPartitionFunction('2006-12-31 00:00');
 select @p
