@@ -35,3 +35,11 @@ EXEC sp_estimate_data_compression_savings 'Sales', 'SalesOrderDetail', NULL, NUL
 ```
 
 ![](https://i.imgur.com/pxtHgQR.png)
+
+---
+
+### Related Links
+
+[Vito](http://vito-note.blogspot.com/2013/10/blog-post_3899.html)
+
+[5P2F](https://dotblogs.com.tw/jamesfu/2014/02/23/compression)
