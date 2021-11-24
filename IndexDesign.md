@@ -64,5 +64,10 @@ Under PK Index Conditions, **Index Scan still mean It don't use Index.**
 
 ![](https://i.imgur.com/JoX0sa8.png)
 
+## Maintenance Index
 
+1. 根據 Query 的 需求，重新設計索引
+2. 定期進行索引保養 **Rebuild** / **Reorganize** 減低 Fragmentation
+
+![](https://i.imgur.com/J4texB5.png)
 
