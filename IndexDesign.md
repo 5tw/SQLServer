@@ -60,8 +60,9 @@ Include Functions
 
 ![](https://i.imgur.com/B2rSiJT.png)
 
+Under PK Index Conditions, **Index Scan still mean It don't use Index.**
 
-
+![](https://i.imgur.com/JoX0sa8.png)
 
 
 
