@@ -52,3 +52,19 @@ Catalog Views
 |Multistatements Table-Valued|Function|自行定義空白 Table 並使用多組 Select 填充資料後回傳 Table|
 |Update Trigger|Trigger|在資料被更新時觸發，進行資料的修改，可用於修改編輯時間等|
 |Instead Of Trigger|Trigger|修改欄位而非刪除資料|
+
+#### Instead Of Trigger 
+
+```sql
+CREATE TRIGGER del_ins_trigger1
+   ON  [Order details]
+   instead of delete
+AS 
+BEGIN
+	SET NOCOUNT ON;
+	update [Order Details] set deleted = 1
+	from [Order Details] as od inner join deleted as d
+	on od.OrderID = d.OrderID and od.ProductID = d.ProductID
+END
+GO
+```
