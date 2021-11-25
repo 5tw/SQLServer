@@ -1,3 +1,12 @@
+### Identity
+
+```sql
+SELECT USER, CURRENT_USER, SYSTEM_USER
+```
+
+![](https://i.imgur.com/dx6D40R.png)
+
+
 ### Create Login
 
 ```SQL
@@ -61,9 +70,9 @@ Msg 916, Level 14, State 1, Procedure GetMarketingDataUnsigned, Line 4 [Batch St
 The server principal "U1" is not able to access the database "Marketing" under the current security context.
 ```
 
+在自己的資料庫使用憑照簽章 StoredProcedures，再到對方資料庫去使用憑證建立一致的使用者。
 
 ```sql
--- create certificate and sign procedure
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'HelloWordCert!@#'
 GO
 
@@ -76,27 +85,33 @@ ADD SIGNATURE TO dbo.GetMarketingDataSigned
 BY CERTIFICATE MyCert
 GO
 
--- export the certificate
 BACKUP CERTIFICATE MyCert TO FILE = 'C:\temp\MyCert.cer'
 
--- import the certificate
 USE Marketing
 CREATE CERTIFICATE MyCert
 FROM FILE = 'C:\temp\MyCert.cer'
 
--- create the authenticator in Marketing
 CREATE USER U1
 FROM CERTIFICATE MyCert
 
 GRANT AUTHENTICATE TO U1
 
 GRANT SELECT ON dbo.MarketingTable TO U1
+```
 
--- test the unsigned procedure
+
+```SQL
 USE Sales
 EXEC dbo.GetMarketingDataUnsigned
-
--- test the signed procedure
-EXEC dbo.GetMarketingDataSigned
-
 ```
+
+``plain
+Msg 916, Level 14, State 1, Procedure GetMarketingDataUnsigned, Line 5 [Batch Start Line 82]
+The server principal "U1" is not able to access the database "Marketing" under the current security context.
+```
+
+```SQL
+EXEC dbo.GetMarketingDataSigned
+```
+
+**It Works.**
