@@ -1,4 +1,6 @@
 
+### Setup
+
 ```sql
 sp_configure 'clr enabled', 1
 GO
@@ -65,3 +67,64 @@ Create Projects
 Create Item
 
 ![](https://i.imgur.com/OSq0du5.png)
+
+## AdventureWorks Utilities
+
+```sql
+USE AdventureWorks
+
+CREATE ASSEMBLY AWorksUtilities
+FROM 'C:\Temp\AWorksUtilities.dll'
+WITH PERMISSION_SET = Safe
+GO
+```
+
+```sql
+Use Master
+
+CREATE ASYMMETRIC KEY AdventureWorks_Login
+FROM EXECUTABLE FILE = 'C:\Source\AWorksUtilities.dll'
+
+CREATE LOGIN AWorksCLR 
+FROM ASYMMETRIC KEY AdventureWorks_Login
+
+GRANT EXTERNAL ACCESS ASSEMBLY TO AWorksCLR;
+```
+
+**Test Assembly | IPAddress**
+
+```sql
+CREATE TYPE IPAddress
+EXTERNAL NAME AWorksUtilities.IPAddress
+GO
+
+-- Test managed user-defined type
+DECLARE @ip dbo.IPAddress
+SET @ip = '127.0.0.1'
+
+SELECT @ip.ToString() AS StringValue
+SELECT @ip.A AS A, @ip.B AS B, @ip.C AS C, @ip.D AS D
+SELECT @ip.Ping() AS PingValue
+```
+
+![](https://i.imgur.com/wHgG8Hp.png)
+
+### Test Assembly | Concatenate**
+
+```sql
+Use AdventureWorks
+GO
+CREATE AGGREGATE Concatenate(@input nvarchar(4000))
+RETURNS nvarchar(4000)
+EXTERNAL NAME AWorksUtilities.Concatenate
+GO
+
+-- Test aggregate function
+SELECT	AccountNumber, 
+		dbo.Concatenate(SalesOrderNumber) AS Orders 
+FROM 	Sales.SalesOrderHeader 
+GROUP BY AccountNumber
+GO
+```
+
+![](https://i.imgur.com/FYof3Pz.png)
